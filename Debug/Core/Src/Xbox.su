@@ -1,0 +1,46 @@
+usb_xinf.h:43:14:static void XUSB::init()	8	static
+usb_xinf.h:44:18:static uint16_t XUSB::available()	8	static
+usb_xinf.h:45:17:static uint8_t XUSB::send(uint8_t*, uint8_t)	16	static
+usb_xinf.h:46:17:static uint8_t XUSB::recv(uint8_t*, uint8_t)	16	static
+Xbox.h:129:15:void Xbox::autosend()	16	static
+Xbox.cpp:15:6:long int map(long int, long int, long int, long int, long int)	24	static
+Xbox.cpp:50:26:const XInputMap_Button* getButtonFromEnum(XInputControl)	16	static
+Xbox.cpp:90:27:const XInputMap_Trigger* getTriggerFromEnum(XInputControl)	16	static
+Xbox.cpp:118:28:const XInputMap_Joystick* getJoyFromEnum(XInputControl)	16	static
+Xbox.cpp:151:1:Xbox::Xbox()	16	static
+Xbox.cpp:161:6:void Xbox::begin()	16	static
+Xbox.cpp:167:6:void Xbox::press(uint8_t)	16	static
+Xbox.cpp:171:6:void Xbox::release(uint8_t)	16	static
+Xbox.cpp:175:6:void Xbox::setButton(uint8_t, bool)	24	static
+Xbox.cpp:192:6:void Xbox::setDpad(XInputControl, bool)	16	static
+Xbox.cpp:196:6:void Xbox::setDpad(bool, bool, bool, bool, bool)	24	static
+Xbox.cpp:215:6:void Xbox::setTrigger(XInputControl, int32_t)	32	static
+Xbox.cpp:227:6:void Xbox::setJoystick(XInputControl, int32_t, int32_t)	32	static
+Xbox.cpp:237:6:void Xbox::setJoystickX(XInputControl, int32_t, bool)	32	static
+Xbox.cpp:253:6:void Xbox::setJoystickY(XInputControl, int32_t, bool)	32	static
+Xbox.cpp:269:6:void Xbox::setJoystick(XInputControl, bool, bool, bool, bool, bool)	32	static
+Xbox.cpp:299:6:void Xbox::setJoystickDirect(XInputControl, int16_t, int16_t)	32	static
+Xbox.cpp:318:6:void Xbox::releaseAll()	24	static
+Xbox.cpp:325:6:void Xbox::setAutoSend(bool)	16	static
+Xbox.cpp:329:6:bool Xbox::getButton(uint8_t) const	24	static
+Xbox.cpp:341:6:bool Xbox::getDpad(XInputControl) const	16	static
+Xbox.cpp:345:9:uint8_t Xbox::getTrigger(XInputControl) const	24	static
+Xbox.cpp:351:9:int16_t Xbox::getJoystickX(XInputControl) const	24	static
+Xbox.cpp:357:9:int16_t Xbox::getJoystickY(XInputControl) const	24	static
+Xbox.cpp:363:9:uint8_t Xbox::getPlayer() const	16	static
+Xbox.cpp:367:10:uint16_t Xbox::getRumble() const	16	static
+Xbox.cpp:371:9:uint8_t Xbox::getRumbleLeft() const	16	static
+Xbox.cpp:375:9:uint8_t Xbox::getRumbleRight() const	16	static
+Xbox.cpp:379:18:XInputLEDPattern Xbox::getLEDPattern() const	16	static
+Xbox.cpp:385:5:int Xbox::send()	16	static
+Xbox.cpp:393:5:int Xbox::receive()	32	static
+Xbox.cpp:424:6:void Xbox::parseLED(uint8_t)	16	static
+Xbox.cpp:453:15:Xbox::Range* Xbox::getRangeFromEnum(XInputControl)	16	static
+Xbox.cpp:463:9:static int32_t Xbox::rescaleInput(int32_t, const Xbox::Range&, const Xbox::Range&)	32	static
+Xbox.cpp:470:9:static int16_t Xbox::invertInput(int16_t, const Xbox::Range&)	16	static
+Xbox.cpp:474:6:void Xbox::setTriggerRange(int32_t, int32_t)	24	static
+Xbox.cpp:479:6:void Xbox::setJoystickRange(int32_t, int32_t)	24	static
+Xbox.cpp:484:6:void Xbox::setRange(XInputControl, int32_t, int32_t)	32	static
+Xbox.cpp:495:6:void Xbox::reset()	16	static
+Xbox.cpp:516:1:Xbox::~Xbox()	16	static
+Xbox.cpp:516:1:virtual Xbox::~Xbox()	16	static

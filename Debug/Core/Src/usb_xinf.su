@@ -1,0 +1,4 @@
+usb_xinf.c:29:10:usb_xinput_available	8	static
+usb_xinf.c:36:9:usb_xinput_recv	16	static
+usb_xinf.c:51:9:usb_xinput_send	24	static
+usb_xinf.c:79:6:usb_xinput_init	8	static
