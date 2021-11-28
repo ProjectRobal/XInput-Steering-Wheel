@@ -87,9 +87,9 @@ I2C_HandleTypeDef hi2c1;
 const uint8_t pedal_pin[]={GPIO_PIN_1,GPIO_PIN_0};
 
 //columns and rows gpio numbers for keypad
-const uint8_t columns[]={GPIO_PIN_3,GPIO_PIN_4,GPIO_PIN_5,GPIO_PIN_8};
+const uint16_t columns[]={GPIO_PIN_3,GPIO_PIN_4,GPIO_PIN_5,GPIO_PIN_8};
 
-const uint8_t rows[]={GPIO_PIN_12,GPIO_PIN_13,GPIO_PIN_14,GPIO_PIN_15};
+const uint16_t rows[]={GPIO_PIN_12,GPIO_PIN_13,GPIO_PIN_14,GPIO_PIN_15};
 
 int rowCounter =0; // row counter
 int columnCounter =0; // column counter
@@ -281,7 +281,7 @@ void pedals(Xbox* _pad)
 
 if(HAL_ADC_PollForConversion(&hadc1,10)== HAL_OK)
 {
-	uint8_t out=0;
+
 
 	uint16_t adc_read=0;
 
@@ -290,11 +290,20 @@ adc_read=HAL_ADC_GetValue(&hadc1);
 
 //out=map(adc_read,PEDAL_LOW,PEDAL_HIGH,0,255);
 
-_pad->setTrigger(TRIGGER_LEFT+curr_adc,out);
+_pad->setTrigger((XInputControl)(TRIGGER_LEFT+curr_adc),adc_read);
 
 HAL_ADC_Stop(&hadc1);
 
-switch_ADC(!curr_adc);
+if(curr_adc==0)
+{
+	curr_adc=1;
+}
+else
+{
+	curr_adc=0;
+}
+
+switch_ADC(curr_adc);
 
 HAL_ADC_Start(&hadc1);
 
@@ -305,6 +314,50 @@ HAL_ADC_Start(&hadc1);
 
 }
 
+bool read_button_state(int row , int column)
+{
+	return keysState ^= (1<<(4*row + column));
+}
+
+#define _DPAD_LEFT read_button_state(0,3)
+#define _DPAD_DOWN read_button_state(1,3)
+#define _DPAD_UP read_button_state(2,3)
+#define _DPAD_RIGHT read_button_state(3,3)
+
+#define A_BUTTON read_button_state(0,2)
+#define B_BUTTON read_button_state(1,2)
+#define X_BUTTON read_button_state(2,2)
+#define Y_BUTTON read_button_state(3,2)
+
+#define R2_BUTTON read_button_state(0,1)
+#define _START_BUTTON read_button_state(1,1)
+#define _BACK_BUTTON read_button_state(2,1)
+#define L2_BUTTON read_button_state(3,1)
+
+#define R3_BUTTON read_button_state(0,0)
+#define L3_BUTTON read_button_state(3,0)
+
+void decode_buttons(Xbox *pad)
+{
+	pad->setButton(DPAD_LEFT,_DPAD_LEFT);
+	pad->setButton(DPAD_RIGHT,_DPAD_RIGHT);
+	pad->setButton(DPAD_UP,_DPAD_UP);
+	pad->setButton(DPAD_DOWN,_DPAD_DOWN);
+
+	pad->setButton(BUTTON_A,A_BUTTON);
+	pad->setButton(BUTTON_B,B_BUTTON);
+	pad->setButton(BUTTON_X,X_BUTTON);
+	pad->setButton(BUTTON_Y,Y_BUTTON);
+
+	pad->setButton(BUTTON_RB,R2_BUTTON);
+	pad->setButton(BUTTON_START,_START_BUTTON);
+	pad->setButton(BUTTON_BACK,_BACK_BUTTON);
+	pad->setButton(BUTTON_LB,L2_BUTTON);
+
+	pad->setButton(BUTTON_R3,R3_BUTTON);
+	pad->setButton(BUTTON_L3,L3_BUTTON);
+
+}
 
 /* USER CODE END PFP */
 
@@ -382,9 +435,9 @@ HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, GPIO_PIN_SET);
 
 //bool but=false;
 
-gamepad->press(BUTTON_A);
+//gamepad->press(BUTTON_A);
 
-
+HAL_ADC_Start(&hadc1);
 
 
   while (1)
@@ -396,6 +449,15 @@ gamepad->press(BUTTON_A);
 	  //gamepad->setButton(BUTTON_A,but);
 
 	  //HAL_Delay(2000);
+
+	  if(IS_USB_SUSPEND())
+	  {
+		  HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13,GPIO_PIN_RESET);
+	  }
+	  else
+	  {
+		  HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, GPIO_PIN_SET);
+	  }
 
 	  while(!IS_USB_SUSPEND())
 	  {
@@ -409,6 +471,18 @@ gamepad->press(BUTTON_A);
 
 		   lastPos=position;
 		  }
+
+		  if(stop-start>=BUTTON_REFRESH)
+		  {
+
+		  button_task();
+
+		  decode_buttons(gamepad);
+
+		  start=HAL_GetTick();
+		  }
+
+		  pedals(gamepad);
 
 	  /*if(gamepad->getLEDPattern()!=0)
 	  {
@@ -428,6 +502,8 @@ gamepad->press(BUTTON_A);
 	 // HAL_Delay(500);
 
     /* USER CODE BEGIN 3 */
+
+	  stop=HAL_GetTick();
 
 	  }
 

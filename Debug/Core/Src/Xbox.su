@@ -2,8 +2,8 @@ usb_xinf.h:43:14:static void XUSB::init()	8	static
 usb_xinf.h:44:18:static uint16_t XUSB::available()	8	static
 usb_xinf.h:45:17:static uint8_t XUSB::send(uint8_t*, uint8_t)	16	static
 usb_xinf.h:46:17:static uint8_t XUSB::recv(uint8_t*, uint8_t)	16	static
-Xbox.h:129:15:void Xbox::autosend()	16	static
-Xbox.cpp:15:6:long int map(long int, long int, long int, long int, long int)	24	static
+Xbox.h:131:15:void Xbox::autosend()	16	static
+Xbox.cpp:15:10:uint32_t map(uint32_t, uint32_t, uint32_t, uint32_t, uint32_t)	24	static
 Xbox.cpp:50:26:const XInputMap_Button* getButtonFromEnum(XInputControl)	16	static
 Xbox.cpp:90:27:const XInputMap_Trigger* getTriggerFromEnum(XInputControl)	16	static
 Xbox.cpp:118:28:const XInputMap_Joystick* getJoyFromEnum(XInputControl)	16	static
@@ -36,7 +36,7 @@ Xbox.cpp:385:5:int Xbox::send()	16	static
 Xbox.cpp:393:5:int Xbox::receive()	32	static
 Xbox.cpp:424:6:void Xbox::parseLED(uint8_t)	16	static
 Xbox.cpp:453:15:Xbox::Range* Xbox::getRangeFromEnum(XInputControl)	16	static
-Xbox.cpp:463:9:static int32_t Xbox::rescaleInput(int32_t, const Xbox::Range&, const Xbox::Range&)	32	static
+Xbox.cpp:463:9:static int32_t Xbox::rescaleInput(int32_t, const Xbox::Range&, const Xbox::Range&)	40	static
 Xbox.cpp:470:9:static int16_t Xbox::invertInput(int16_t, const Xbox::Range&)	16	static
 Xbox.cpp:474:6:void Xbox::setTriggerRange(int32_t, int32_t)	24	static
 Xbox.cpp:479:6:void Xbox::setJoystickRange(int32_t, int32_t)	24	static
